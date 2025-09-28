@@ -1,7 +1,7 @@
 # Проект «Большое путешествие»
 
-* Студент: [Роман Антонюк](https://up.htmlacademy.ru/ecmascript-individual/2/user/2317253).
-* Наставник: `Неизвестно`.
+- Студент: [Роман Антонюк](https://up.htmlacademy.ru/ecmascript-individual/2/user/2317253).
+- Наставник: [Станислав Михайлво](https://htmlacademy.ru/profile/id139638).
 
 ---
 

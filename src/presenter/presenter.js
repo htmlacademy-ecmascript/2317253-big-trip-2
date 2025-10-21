@@ -8,11 +8,14 @@ import Point from '../view/point-view';
 import { RenderPosition, render } from '../render.js';
 
 export default class Presenter {
-  constructor({ tripEventsContainer }) {
+  constructor({ tripEventsContainer, tripModel }) {
     this.tripEventsContainer = tripEventsContainer;
+    this.tripModel = tripModel;
   }
 
   init() {
+    this.tripPoints = [...this.tripModel.getTripPoints()];
+
     render(new TripSort(), this.tripEventsContainer);
     render(new TripEventsList(), this.tripEventsContainer);
 
@@ -38,8 +41,8 @@ export default class Presenter {
     render(new PointOffers(), addDetailsContainer);
     render(new PointDestination(), addDetailsContainer);
 
-    for (let i = 0; i < 3; i++) {
-      render(new Point(), tripEventsList);
+    for (let i = 0; i < this.tripPoints.length; i++) {
+      render(new Point({ point: this.tripPoints[i] }), tripEventsList);
     }
   }
 }

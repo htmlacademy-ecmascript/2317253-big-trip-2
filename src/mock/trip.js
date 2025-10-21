@@ -226,4 +226,8 @@ const mockTripOffers = [
   },
 ];
 
-export { mockTripPoints, mockTripDestinations, mockTripOffers };
+function getRandomTripPoints() {
+  return getRandomArrayElement(mockTripPoints);
+}
+
+export { getRandomTripPoints, mockTripDestinations, mockTripOffers };

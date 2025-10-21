@@ -41,6 +41,10 @@ function createPointTemplate() {
 }
 
 export default class Point {
+  constructor({ point }) {
+    this.point = point;
+  }
+
   getTemplate() {
     return createPointTemplate();
   }

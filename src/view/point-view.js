@@ -28,11 +28,10 @@ function createPointOffersTemplate(pointOffers, pointType, allOffers) {
 }
 
 function createPointTemplate(point) {
-  console.log('point', point);
   const { type, destination, dateFrom, dateTo, basePrice, offers, isFavorite } =
     point;
   const formattedDate = formatDate(dateFrom);
-  const typOfTrip = capitalizeFirst(type);
+  const typeOfTrip = capitalizeFirst(type);
   const destOfPoint = getDestination(destination, mockTripDestinations);
   const formattedStartTime = formatTime(dateFrom);
   const formattedEndTime = formatTime(dateTo);
@@ -44,9 +43,9 @@ function createPointTemplate(point) {
               <div class="event">
                 <time class="event__date" datetime="${dateFrom}">${formattedDate}</time>
                 <div class="event__type">
-                  <img class="event__type-icon" width="42" height="42" src="img/icons/${typOfTrip}.png" alt="Event type icon">
+                  <img class="event__type-icon" width="42" height="42" src="img/icons/${type}.png" alt="Event type icon">
                 </div>
-                <h3 class="event__title">${typOfTrip} ${destOfPoint.name}</h3>
+                <h3 class="event__title">${typeOfTrip} ${destOfPoint.name}</h3>
                 <div class="event__schedule">
                   <p class="event__time">
                     <time class="event__start-time" datetime="${dateFrom}">${formattedStartTime}</time>

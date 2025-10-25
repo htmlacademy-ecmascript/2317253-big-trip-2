@@ -1,13 +1,31 @@
 import { createElement } from '../render.js';
+import {
+  capitalizeFirst,
+  getDestination,
+  formatDateTimeForInput,
+} from '../utils.js';
 
-function createEditPointTemplate() {
+function createDestinationOptionsList(destinations) {
+  return destinations
+    .map((dest) => `<option value="${dest.name}"></option>`)
+    .join('');
+}
+
+function createEditPointTemplate(point, allDestinations) {
+  const { type, destination, dateFrom, dateTo, basePrice, offers, isFavorite } =
+    point;
+
+  const typeOfTrip = capitalizeFirst(type);
+  const destOfPoint = getDestination(destination, allDestinations);
+  console.log('destOfPoint', destOfPoint);
+
   return `<li class="trip-events__item">
               <form class="event event--edit" action="#" method="post">
                 <header class="event__header">
                   <div class="event__type-wrapper">
                     <label class="event__type  event__type-btn" for="event-type-toggle-1">
                       <span class="visually-hidden">Choose event type</span>
-                      <img class="event__type-icon" width="17" height="17" src="img/icons/flight.png" alt="Event type icon">
+                      <img class="event__type-icon" width="17" height="17" src="img/icons/${type}.png" alt="Event type icon">
                     </label>
                     <input class="event__type-toggle  visually-hidden" id="event-type-toggle-1" type="checkbox">
 
@@ -65,22 +83,29 @@ function createEditPointTemplate() {
 
                   <div class="event__field-group  event__field-group--destination">
                     <label class="event__label  event__type-output" for="event-destination-1">
-                      Flight
+                      ${typeOfTrip}
                     </label>
-                    <input class="event__input  event__input--destination" id="event-destination-1" type="text" name="event-destination" value="Chamonix" list="destination-list-1">
+                    <input class="event__input  event__input--destination"
+                    id="event-destination-1"
+                    type="text"
+                    name="event-destination"
+                    value="${destOfPoint.name}"
+                    list="destination-list-1">
                     <datalist id="destination-list-1">
-                      <option value="Amsterdam"></option>
-                      <option value="Geneva"></option>
-                      <option value="Chamonix"></option>
+                      ${createDestinationOptionsList(allDestinations)}
                     </datalist>
                   </div>
 
                   <div class="event__field-group  event__field-group--time">
                     <label class="visually-hidden" for="event-start-time-1">From</label>
-                    <input class="event__input  event__input--time" id="event-start-time-1" type="text" name="event-start-time" value="18/03/19 12:25">
+                    <input class="event__input  event__input--time" id="event-start-time-1" type="text" name="event-start-time" value="${formatDateTimeForInput(
+                      dateFrom
+                    )}">
                     &mdash;
                     <label class="visually-hidden" for="event-end-time-1">To</label>
-                    <input class="event__input  event__input--time" id="event-end-time-1" type="text" name="event-end-time" value="18/03/19 13:35">
+                    <input class="event__input  event__input--time" id="event-end-time-1" type="text" name="event-end-time" value="${formatDateTimeForInput(
+                      dateTo
+                    )}">
                   </div>
 
                   <div class="event__field-group  event__field-group--price">
@@ -88,7 +113,7 @@ function createEditPointTemplate() {
                       <span class="visually-hidden">Price</span>
                       &euro;
                     </label>
-                    <input class="event__input  event__input--price" id="event-price-1" type="text" name="event-price" value="160">
+                    <input class="event__input  event__input--price" id="event-price-1" type="text" name="event-price" value="${basePrice}">
                   </div>
 
                   <button class="event__save-btn  btn  btn--blue" type="submit">Save</button>
@@ -103,8 +128,13 @@ function createEditPointTemplate() {
 }
 
 export default class EditPoint {
+  constructor({ point, allDestinations }) {
+    this.point = point;
+    this.allDestinations = allDestinations;
+  }
+
   getTemplate() {
-    return createEditPointTemplate();
+    return createEditPointTemplate(this.point, this.allDestinations);
   }
 
   getElement() {

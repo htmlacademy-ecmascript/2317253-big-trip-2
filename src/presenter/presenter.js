@@ -8,9 +8,10 @@ import Point from '../view/point-view';
 import { RenderPosition, render } from '../render.js';
 
 export default class Presenter {
+  //где нужно объявлять компоненты? Тут или в init?
   tripEventsList = new TripEventsList();
   tripSort = new TripSort();
-  editPointComponent = new EditPoint({ point: this.tripPoints[0] });
+  // editPointComponent = new EditPoint({ point: this.tripPoints[0] });
   addPointComponent = new AddNewPoint();
 
   constructor({ tripEventsContainer, tripModel }) {
@@ -20,6 +21,12 @@ export default class Presenter {
 
   init() {
     this.tripPoints = [...this.tripModel.getTripPoints()];
+    this.allTripDestinations = [...this.tripModel.getTripDestinations()];
+    this.tripOffers = [...this.tripModel.getTripOffers()];
+    this.editPointComponent = new EditPoint({
+      point: this.tripPoints[0],
+      allDestinations: this.allTripDestinations,
+    });
 
     render(this.tripSort, this.tripEventsContainer);
     render(this.tripEventsList, this.tripEventsContainer);
@@ -40,11 +47,17 @@ export default class Presenter {
       addNewPointElement.querySelector('.event__details');
 
     render(
-      new PointOffers({ point: this.tripPoints[0] }),
+      new PointOffers({
+        point: this.tripPoints[0],
+        offers: this.tripOffers,
+      }),
       editDetailsContainer
     );
     render(
-      new PointDestination({ point: this.tripPoints[0] }),
+      new PointDestination({
+        point: this.tripPoints[0],
+        allDestinations: this.allTripDestinations,
+      }),
       editDetailsContainer
     );
 

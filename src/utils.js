@@ -11,6 +11,10 @@ function formatTime(date) {
   return date && dayjs(date).format('HH:mm');
 }
 
+function formatDateTimeForInput(date) {
+  return date && dayjs(date).format('DD/MM/YY HH:mm');
+}
+
 function getTimeDifference(dateFrom, dateTo) {
   const diff = dayjs(dateTo).diff(dayjs(dateFrom));
   const dur = dayjs.duration(diff);
@@ -53,8 +57,8 @@ function capitalizeFirst(str) {
 }
 
 //правильно ли эту функцию объявлять тут? Или лучше в point-view.js?
-function getDestination(pointDestinationId, tripDestinations) {
-  return tripDestinations.find(
+function getDestination(pointDestinationId, AllTripDestinations) {
+  return AllTripDestinations.find(
     (destionation) => pointDestinationId === destionation.id
   );
 }
@@ -68,4 +72,5 @@ export {
   formatTime,
   getTimeDifference,
   getRandomIds,
+  formatDateTimeForInput,
 };

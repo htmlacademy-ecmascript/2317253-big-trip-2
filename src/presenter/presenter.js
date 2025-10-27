@@ -8,38 +8,79 @@ import Point from '../view/point-view';
 import { RenderPosition, render } from '../render.js';
 
 export default class Presenter {
-  constructor({ tripEventsContainer }) {
+  //где нужно объявлять компоненты? Тут или в init?
+  tripEventsList = new TripEventsList();
+  tripSort = new TripSort();
+  // editPointComponent = new EditPoint({ point: this.tripPoints[0] });
+  addPointComponent = new AddNewPoint();
+
+  constructor({ tripEventsContainer, tripModel }) {
     this.tripEventsContainer = tripEventsContainer;
+    this.tripModel = tripModel;
   }
 
   init() {
-    render(new TripSort(), this.tripEventsContainer);
-    render(new TripEventsList(), this.tripEventsContainer);
+    this.tripPoints = [...this.tripModel.getTripPoints()];
+    this.allTripDestinations = [...this.tripModel.getTripDestinations()];
+    this.tripOffers = [...this.tripModel.getTripOffers()];
+    this.editPointComponent = new EditPoint({
+      point: this.tripPoints[0],
+      allDestinations: this.allTripDestinations,
+    });
 
-    const tripEventsList =
-      this.tripEventsContainer.querySelector('.trip-events__list');
-    const editPointComponent = new EditPoint();
-    const addPointComponent = new AddNewPoint();
+    render(this.tripSort, this.tripEventsContainer);
+    render(this.tripEventsList, this.tripEventsContainer);
 
-    render(editPointComponent, tripEventsList, RenderPosition.AFTERBEGIN);
-    render(addPointComponent, tripEventsList);
+    render(
+      this.editPointComponent,
+      this.tripEventsList.getElement(),
+      RenderPosition.AFTERBEGIN
+    );
+    render(this.addPointComponent, this.tripEventsList.getElement());
 
-    const editPointElement = editPointComponent.getElement();
-    const addNewPointElement = addPointComponent.getElement();
+    const editPointElement = this.editPointComponent.getElement();
+    const addNewPointElement = this.addPointComponent.getElement();
 
     const editDetailsContainer =
       editPointElement.querySelector('.event__details');
     const addDetailsContainer =
       addNewPointElement.querySelector('.event__details');
 
-    render(new PointOffers(), editDetailsContainer);
-    render(new PointDestination(), editDetailsContainer);
+    render(
+      new PointOffers({
+        point: this.tripPoints[0],
+        offers: this.tripOffers,
+      }),
+      editDetailsContainer
+    );
+    render(
+      new PointDestination({
+        point: this.tripPoints[0],
+        allDestinations: this.allTripDestinations,
+      }),
+      editDetailsContainer
+    );
 
-    render(new PointOffers(), addDetailsContainer);
-    render(new PointDestination(), addDetailsContainer);
+    render(
+      new PointOffers({
+        point: this.tripPoints[0],
+        offers: this.tripOffers,
+      }),
+      addDetailsContainer
+    );
+    render(
+      new PointDestination({
+        point: this.tripPoints[0],
+        allDestinations: this.allTripDestinations,
+      }),
+      addDetailsContainer
+    );
 
-    for (let i = 0; i < 3; i++) {
-      render(new Point(), tripEventsList);
+    for (let i = 1; i < this.tripPoints.length; i++) {
+      render(
+        new Point({ point: this.tripPoints[i] }),
+        this.tripEventsList.getElement()
+      );
     }
   }
 }

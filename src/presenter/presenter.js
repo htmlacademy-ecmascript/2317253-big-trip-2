@@ -61,8 +61,20 @@ export default class Presenter {
       editDetailsContainer
     );
 
-    render(new PointOffers(), addDetailsContainer);
-    render(new PointDestination(), addDetailsContainer);
+    render(
+      new PointOffers({
+        point: this.tripPoints[0],
+        offers: this.tripOffers,
+      }),
+      addDetailsContainer
+    );
+    render(
+      new PointDestination({
+        point: this.tripPoints[0],
+        allDestinations: this.allTripDestinations,
+      }),
+      addDetailsContainer
+    );
 
     for (let i = 1; i < this.tripPoints.length; i++) {
       render(

@@ -66,7 +66,7 @@ const mockTripDestinations = [
     name: 'Chamonix',
     pictures: [
       {
-        src: 'http://picsum.photos/300/200?r=0.0762563005163317',
+        src: 'img/photos/1.jpg',
         description: 'Chamonix parliament building',
       },
     ],
@@ -78,11 +78,11 @@ const mockTripDestinations = [
     name: 'Amsterdam',
     pictures: [
       {
-        src: 'http://picsum.photos/300/200?r=0.1234567890123456',
+        src: 'img/photos/2.jpg',
         description: 'Amsterdam canals at sunset',
       },
       {
-        src: 'http://picsum.photos/300/200?r=0.9876543210987654',
+        src: 'img/photos/3.jpg',
         description: 'Traditional Dutch architecture',
       },
     ],
@@ -100,7 +100,7 @@ const mockTripDestinations = [
     name: 'Tokyo',
     pictures: [
       {
-        src: 'http://picsum.photos/300/200?r=0.5555555555555555',
+        src: 'img/photos/5.jpg',
         description: 'Tokyo skyline with Mount Fuji',
       },
     ],
@@ -111,15 +111,15 @@ const mockTripDestinations = [
     name: 'Barcelona',
     pictures: [
       {
-        src: 'http://picsum.photos/300/200?r=0.3333333333333333',
+        src: 'img/photos/2.jpg',
         description: 'Sagrada Familia cathedral',
       },
       {
-        src: 'http://picsum.photos/300/200?r=0.7777777777777777',
+        src: 'img/photos/4.jpg',
         description: 'Park Guell panorama',
       },
       {
-        src: 'http://picsum.photos/300/200?r=0.2222222222222222',
+        src: 'img/photos/5.jpg',
         description: 'Barcelona beach',
       },
     ],

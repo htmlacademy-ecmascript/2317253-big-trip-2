@@ -48,7 +48,6 @@ function getRandomIds(min, max, count) {
       result.push(id);
     }
   }
-  console.log('result of getRandomId', result);
   return result;
 }
 
